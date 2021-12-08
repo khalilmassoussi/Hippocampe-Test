@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                {% for categorie in categories %}
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                            data-bs-target="#{{ categorie.id }}" type="button"
+                            role="tab" aria-controls="nav-home" aria-selected="true">{{ categorie.nom }}
+                    </button>
+                {% endfor %}
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            {% for categorie in categories %}
+                <div class="tab-pane fade show active" id="{{ categorie.id }}" role="tabpanel"
+                     aria-labelledby="nav-home-tab">
+
+                    {% for article in categorie.articles %}
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ article.titre }}</h5>
+                                <p class="card-text">{{ article.resume|raw }}</p>
+                                <a href="{{ path('article_show', {id: article.id}) }}" class="btn btn-primary">Afficher
+                                    plus</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}
